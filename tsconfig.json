@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",  // Karena Node.js menggunakan CommonJS
-    "outDir": "./dist", 
-    "rootDir": "./src", 
+    "rootDir": "./",  // Mengubah rootDir ke direktori project
+    "outDir": "./dist", // Output ke folder dist
+    "module": "commonjs",
+    "target": "es6",
     "strict": true,
-    "esModuleInterop": true, 
-    "skipLibCheck": true
-  }
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*", "api/**/*"], // Termasuk src dan api dalam proyek
+  "exclude": ["node_modules"]
 }
