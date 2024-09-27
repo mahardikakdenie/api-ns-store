@@ -1,4 +1,4 @@
-import { createUserRepo, getDataRepo } from "../repositories/user_repository";
+import { createUserRepo, getRawUser } from "../repositories/user_repository";
 import bcrypt from 'bcrypt';
 
 export const createUserService = async (userObj: { name: string, email: string, password: string; }) => {
@@ -19,5 +19,5 @@ export const getDataUserService = async (payload: any) => {
         pipeline[0].$match.email = payload.email;
     }
 
-    return await getDataRepo(pipeline);
+    return await getRawUser(pipeline);
 };

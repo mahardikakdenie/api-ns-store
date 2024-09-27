@@ -5,7 +5,7 @@ export const createUserRepo = async (userData: any) => {
     return await User.create(userData);
 };
 
-export const getDataRepo = async (payload: Array<{ $match?: any; $group?: any; $sort?: any; }>) => {
+export const getRawUser = async (payload: Array<{ $match?: any; $group?: any; $sort?: any; }>) => {
     try {
         const pipeline = [];
 
