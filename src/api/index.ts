@@ -12,11 +12,6 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
 // Routes
-app.use('/', () => {
-  router.get('/', (req, res) => {
-    res.send('route');
-  });
-});
 app.use('/api/users', userRoutes);
 
 // Koneksi MongoDB dan start server
