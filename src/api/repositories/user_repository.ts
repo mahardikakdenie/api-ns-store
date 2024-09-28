@@ -1,30 +1,14 @@
 
 import User from "../models/user";
+import { PipelineStage } from 'mongoose'; 
 
-export const createUserRepo = async (userData: any) => {
+export const createUserRepo = async (userData: unknown) => {
     return await User.create(userData);
 };
 
-export const getRawUser = async (payload: Array<{ $match?: any; $group?: any; $sort?: any; }>) => {
+export const getRawUser = async (payload: PipelineStage[]) => {
     try {
-        const pipeline = [];
-
-        console.log('pip -> ', payload);
-
-        const matchStage = payload.find(stage => stage.$match);
-        if (matchStage) {
-            pipeline.push({ $match: matchStage.$match });
-        }
-
-        const groupStage = payload.find(stage => stage.$group);
-        if (groupStage) {
-            pipeline.push({ $group: groupStage.$group });
-        }
-
-        const sortStage = payload.find(stage => stage.$sort);
-        if (sortStage) {
-            pipeline.push({ $sort: sortStage.$sort });
-        }
+        const pipeline: PipelineStage[] = [...payload];
 
         if (pipeline.length === 0) {
             return await User.find();
@@ -32,7 +16,7 @@ export const getRawUser = async (payload: Array<{ $match?: any; $group?: any; $s
 
         return await User.aggregate(pipeline);
     } catch (error) {
-        console.error('Error in getDataRepo:', error);
+        console.error('Error in getRawUser:', error);
         throw new Error(`Failed to fetch data: ${error}`);
     }
 };

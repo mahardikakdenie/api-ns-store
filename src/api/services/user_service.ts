@@ -1,5 +1,6 @@
 import { createUserRepo, getRawUser } from "../repositories/user_repository";
 import bcrypt from 'bcrypt';
+import { PipelineStage } from 'mongoose'; 
 
 export const createUserService = async (userObj: { name: string, email: string, password: string; }) => {
     if (userObj?.password) {
@@ -9,15 +10,17 @@ export const createUserService = async (userObj: { name: string, email: string, 
     return await createUserRepo(userObj);
 };
 
-export const getDataUserService = async (payload: any) => {
-    const pipeline: any = [];
+export const getDataUserService = async (payload: { email?: string }) => {
+    const pipeline: PipelineStage[] = [];
 
+    // Cek apakah email tersedia dalam payload
     if (payload.email) {
-        if (pipeline.length === 0) {
-            pipeline.push({ $match: {} });
-        }
-        pipeline[0].$match.email = payload.email;
+        const matchStage: PipelineStage.Match = {
+            $match: { email: payload.email }
+        };
+        pipeline.push(matchStage);
     }
 
+    // Panggil getRawUser dengan pipeline yang sudah dibangun
     return await getRawUser(pipeline);
 };

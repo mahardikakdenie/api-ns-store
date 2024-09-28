@@ -2,7 +2,6 @@ import express, { Application } from 'express';
 import connectDB from './database';
 import userRoutes from './routes/user';
 import dotEnv from 'dotenv'
-import router from './routes/user';
 dotEnv.config();
 
 const app: Application = express();

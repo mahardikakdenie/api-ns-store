@@ -3,13 +3,8 @@ import {
 	createUserService,
 	getDataUserService,
 } from '../services/user_service';
-import Joi from 'joi';
-
-const userSchema = Joi.object({
-	name: Joi.string().min(3).max(30).required(),
-	password: Joi.string().min(6).required(),
-	email: Joi.string().email().required(),
-});
+import { userSchema } from '../schema/user';
+const userSchemaValidation = userSchema
 
 export const createUser = async (
 	req: Request,
@@ -18,10 +13,9 @@ export const createUser = async (
 	try {
 		const body = req.body;
 
-		const { error, value } = userSchema.validate(body);
+		const { error, value } = userSchemaValidation.validate(body);
 
 		if (error) {
-			// Jika validasi gagal, kembalikan error ke client
 			res.status(400).json({ message: error.details });
 			return;
 		}
