@@ -3,7 +3,7 @@ import {
 	createUserService,
 	getDataUserService,
 } from '../services/user_service';
-import { userSchema } from '../schema/user';
+import { userSchema } from '../schema/user_schema';
 const userSchemaValidation = userSchema
 
 export const createUser = async (

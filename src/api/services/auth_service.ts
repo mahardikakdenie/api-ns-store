@@ -17,13 +17,13 @@ export const loginService = async (payload: { email: string; password: string })
     const user = await getRawUser(pipeline);
 
     if (user.length === 0) {
-        throw new Error("User Not found");
+        throw new Error("The user with this email address was not found. Please check the email and try again.");
     }
 
     const matchPassword = await bcrypt.compareSync(payload.password, user[0].password);
 
     if (!matchPassword) {
-        throw new Error("User not fount");
+        throw new Error("Incorrect password. Please verify your password and try again.");
     }
 
     const authLogin = loginRepo(user[0]);
