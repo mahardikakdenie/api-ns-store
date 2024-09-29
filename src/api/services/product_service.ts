@@ -15,7 +15,18 @@ export const getProductService = async (payloads: { name?: string; _id?: string 
                 foreignField: "_id",
                 as: "user"
             }
-        }
+        },
+        {
+            $project: {
+              name: 1,
+              user: {
+                $arrayElemAt: ["$user", 0]
+              },
+              price: 1,
+              description: 1,
+              inStock: 1,
+            }
+          }
     ];
 
     if (payloads.name) {
