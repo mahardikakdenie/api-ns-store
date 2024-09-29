@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { CustomRequest } from '../interfaces/CustomRequestInterface';
-import { createProductService, getProductService } from '../services/product_service';
+import { createProductService, getProductService, updateProductMedia } from '../services/product_service';
 import { productSchema } from '../schema/product_schema';
 import { JwtPayload } from 'jsonwebtoken';
 import { ProductInterface } from '../interfaces/ProductInterface';
@@ -44,3 +44,18 @@ export const getProducts = async (req: CustomRequest, res: Response): Promise<vo
         res.status(500).json({ message: err.message, data: {} }); // Ensure you return the response here
     }
 }
+
+export const updateProduct = async (req: CustomRequest, res: Response): Promise<void> => {
+    try {
+        const productId = req.params.productId;
+        const body = req?.body;
+
+        await updateProductMedia(productId, body?.mediaId);
+
+        res.status(200).json({ message: 'Data Successfully update', })
+    } catch (error: unknown) {
+        const err = error as Error;
+        console.error(err.message);
+        res.status(500).json({ message: err.message, data: {} }); // Ensure you return the response here
+    }
+};

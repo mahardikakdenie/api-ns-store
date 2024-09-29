@@ -1,6 +1,6 @@
 import mongoose, { PipelineStage } from "mongoose";
 import { ProductInterface } from "../interfaces/ProductInterface";
-import { createProduct, getRawProducts } from "../repositories/product_repository";
+import { createProduct, getRawProducts, updateProduct } from "../repositories/product_repository";
 
 export const createProductService = async (product: ProductInterface) => {
     return await createProduct(product);
@@ -17,6 +17,14 @@ export const getProductService = async (payloads: { name?: string; _id?: string 
             }
         },
         {
+            $lookup: {
+                from: 'media',
+                localField: 'mediaId',
+                foreignField: '_id',
+                as: 'media',
+            }
+        },
+        {
             $project: {
               name: 1,
               user: {
@@ -25,6 +33,9 @@ export const getProductService = async (payloads: { name?: string; _id?: string 
               price: 1,
               description: 1,
               inStock: 1,
+              media: {
+                $arrayElemAt: ['$media', 0],
+              },
             }
           }
     ];
@@ -46,4 +57,12 @@ export const getProductService = async (payloads: { name?: string; _id?: string 
     }
 
     return await getRawProducts(pipelines);
+};
+
+export const updateProductMedia = async (productId: string, mediaId: string) => {
+    const payload = {
+        mediaId: new mongoose.Types.ObjectId(mediaId),
+    }
+
+    return await updateProduct(productId, payload);
 };

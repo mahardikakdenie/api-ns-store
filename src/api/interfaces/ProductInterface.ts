@@ -3,7 +3,7 @@ export interface ProductInterface {
     userId: string;
     price: string;
     description: string;
-    // media: object;
+    mediaId?: object;
     category: string;
     inStock: boolean;
 }

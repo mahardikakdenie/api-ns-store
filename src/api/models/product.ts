@@ -23,10 +23,11 @@ const productSchema = new mongoose.Schema({
         required: [true, 'Description is required'],
         maxlength: [500, 'Description cannot exceed 500 characters']
     },
-    // media: {
-    //     type: Object,
-    //     default: {},
-    // },
+    mediaId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Media', 
+    default: null
+    },
     category: {
         type: String,
         enum: ['Electronics', 'Books', 'Clothing', 'Accessories', 'Other'],
