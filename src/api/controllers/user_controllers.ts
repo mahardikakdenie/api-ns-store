@@ -4,7 +4,7 @@ import {
 	getDataUserService,
 } from '../services/user_service';
 import { userSchema } from '../schema/user_schema';
-const userSchemaValidation = userSchema
+const userSchemaValidation = userSchema;
 
 export const createUser = async (
 	req: Request,
