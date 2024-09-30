@@ -25,11 +25,11 @@ export const createProduct = async (req: CustomRequest, res: Response) => {
 
         const product = await createProductService(value);
 
-        res.status(200).json({ message: 'success', data: product });
+        successResponse(res, product);
     } catch (error: unknown) {
         const err = error as Error;
         console.error(err.message);
-        res.status(500).json({ message: err.message });
+        errorResponse(res, err.message, 500);
     }
 };
 
@@ -43,7 +43,6 @@ export const getProducts = async (req: CustomRequest, res: Response): Promise<vo
     } catch (error: unknown) {
         const err = error as Error;
         console.error(err.message);
-        res.status(500).json({ message: err.message, data: {} }); // Ensure you return the response here
         errorResponse(res, 'error');
     }
 }
@@ -55,10 +54,10 @@ export const updateProduct = async (req: CustomRequest, res: Response): Promise<
 
         await updateProductMedia(productId, body?.mediaId);
 
-        res.status(200).json({ message: 'Data Successfully update', })
+        successResponse(res, "Data Successfully update");
     } catch (error: unknown) {
         const err = error as Error;
         console.error(err.message);
-        res.status(500).json({ message: err.message, data: {} }); // Ensure you return the response here
+        errorResponse(res, err.message); // Ensure you return the response here
     }
 };
