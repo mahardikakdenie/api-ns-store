@@ -4,6 +4,7 @@ import { createProductService, getProductService, updateProductMedia } from '../
 import { productSchema } from '../schema/product_schema';
 import { JwtPayload } from 'jsonwebtoken';
 import { ProductInterface } from '../interfaces/ProductInterface';
+import { successResponse, errorResponse } from 'helper-transformer';
 
 const productSchemaValidate = productSchema;
 
@@ -37,11 +38,13 @@ export const getProducts = async (req: CustomRequest, res: Response): Promise<vo
         const query = req.query;
 
         const products: ProductInterface[] = await getProductService(query); 
-        res.status(201).json({ message: 'success', data: products }); // Returning the response
+         // Returning the response
+        successResponse(res, products);
     } catch (error: unknown) {
         const err = error as Error;
         console.error(err.message);
         res.status(500).json({ message: err.message, data: {} }); // Ensure you return the response here
+        errorResponse(res, 'error');
     }
 }
 
