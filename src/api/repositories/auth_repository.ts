@@ -8,7 +8,7 @@ export const loginRepo = async (user: { email: string; password: string, _id: st
             email: user.email,
         },
         SECRET_KEY,
-        { expiresIn: '1h' } // Token berlaku selama 1 jam
+        { expiresIn: '1d' } // Token berlaku selama 1 day
     );
 
     return token;
