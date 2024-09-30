@@ -24,17 +24,17 @@ export const getRawProducts = async (payload: PipelineStage[]) => {
 };
 
 export const updateProduct = async (
-	userId: string,
+	productId: string,
 	options: { mediaId?: mongoose.Types.ObjectId }
 ) => {
 	try {
-		// Validasi userId apakah valid ObjectId
-		if (!mongoose.Types.ObjectId.isValid(userId)) {
-			throw new Error('Invalid userId');
+		// Validasi productId apakah valid ObjectId
+		if (!mongoose.Types.ObjectId.isValid(productId)) {
+			throw new Error('Invalid productId');
 		}
 
 		// Temukan produk berdasarkan ID
-		const product = await Product.findOneAndUpdate(new mongoose.Types.ObjectId(userId), options);
+		const product = await Product.findOneAndUpdate(new mongoose.Types.ObjectId(productId), options);
 
 		return product;
 	} catch (error) {

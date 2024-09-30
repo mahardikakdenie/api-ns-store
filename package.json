@@ -19,7 +19,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "form-data": "^4.0.0",
-    "helper-transformer": "^1.1.1",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.4",
@@ -34,6 +33,7 @@
     "@types/mongoose": "^5.11.97",
     "eslint": "^9.11.1",
     "globals": "^15.9.0",
+    "helper-transformer": "^1.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.7.0"
