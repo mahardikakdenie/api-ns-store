@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { CustomRequest } from '../interfaces/CustomRequestInterface';
-import { createProductService, getProductService, updateProductMedia } from '../services/product_service';
+import { createProductService, getProductService, updateProductServices } from '../services/product_service';
 import { productSchema } from '../schema/product_schema';
 import { JwtPayload } from 'jsonwebtoken';
 import { ProductInterface } from '../interfaces/ProductInterface';
@@ -52,7 +52,7 @@ export const updateProduct = async (req: CustomRequest, res: Response): Promise<
         const productId = req.params.productId;
         const body = req?.body;
 
-        await updateProductMedia(productId, body?.mediaId);
+        await updateProductServices(productId, body);
 
         successResponse(res, "Data Successfully update");
     } catch (error: unknown) {

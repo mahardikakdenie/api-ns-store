@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
     mediaId: {
         type: mongoose.Types.ObjectId,
         ref: 'Media', 
-    default: null
+        default: null
     },
     category: {
         type: String,

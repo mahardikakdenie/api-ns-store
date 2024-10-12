@@ -81,27 +81,13 @@ export const updateProductServices = async (
 	productId: string,
 	productPayload: {
 		name?: string;
-		description: string;
-		mediaId: string;
+		description?: string;
+		mediaId?: string;
+		price?: string;
+		category?: string;
+		inStock?: boolean;
 	}
 ) => {
-	const params = {
-		name: '',
-		description: '',
-		mediaId: new mongoose.Types.ObjectId(''),
-	};
 
-	if (productPayload.name) {
-		params.name = productPayload.name;
-	}
-
-	if (productPayload.description) {
-		params.description = productPayload.description;
-	}
-
-	if (productPayload.mediaId) {
-		params.mediaId = new mongoose.Types.ObjectId(productPayload.mediaId);
-	}
-
-	return await updateProduct(productId, params);
+	return await updateProduct(productId, productPayload);
 };
